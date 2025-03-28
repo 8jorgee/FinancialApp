@@ -6,6 +6,8 @@ import android.content.Context
 import androidx.room.Room
 import com.google.firebase.FirebaseApp
 import com.financetracker.data.local.FinanceDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 @HiltAndroidApp
 class FinanceTrackerApp : Application() {
@@ -13,6 +15,10 @@ class FinanceTrackerApp : Application() {
         lateinit var instance: FinanceTrackerApp
             private set
         lateinit var database: FinanceDatabase
+            private set
+        lateinit var auth: FirebaseAuth
+            private set
+        lateinit var firestore: FirebaseFirestore
             private set
     }
 
@@ -25,5 +31,7 @@ class FinanceTrackerApp : Application() {
             FinanceDatabase::class.java,
             "finance_db"
         ).build()
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
     }
 }
