@@ -8,6 +8,12 @@ import com.google.firebase.FirebaseApp
 import com.financetracker.data.local.FinanceDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
+import com.financetracker.data.repository.AuthRepository
+import com.financetracker.data.repository.FinanceRepository
+import com.financetracker.ui.auth.LoginScreen
+import com.financetracker.ui.auth.RegisterScreen
+import com.financetracker.ui.main.DashboardScreen
 
 @HiltAndroidApp
 class FinanceTrackerApp : Application() {
@@ -19,6 +25,12 @@ class FinanceTrackerApp : Application() {
         lateinit var auth: FirebaseAuth
             private set
         lateinit var firestore: FirebaseFirestore
+            private set
+        lateinit var messaging: FirebaseMessaging
+            private set
+        lateinit var authRepository: AuthRepository
+            private set
+        lateinit var financeRepository: FinanceRepository
             private set
     }
 
@@ -33,5 +45,8 @@ class FinanceTrackerApp : Application() {
         ).build()
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
+        messaging = FirebaseMessaging.getInstance()
+        authRepository = AuthRepository(auth, firestore)
+        financeRepository = FinanceRepository(database.financeDao())
     }
 }
